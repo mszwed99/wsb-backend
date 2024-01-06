@@ -1,326 +1,315 @@
+# Tworzenie backendu do aplikacji webowych - API
 
-#  Online Trading Platform - API
+## Autoryzacja
 
-## Authorization
+- **Rejestracja**
 
-- **Sign Up**
-
-> Creates a user in the database and returns tokens ( refresh and access )
+> Tworzy użytkownika w bazie danych i zwraca tokeny (odświeżający i dostępu)
 
     POST http://localhost:3000/api/auth/signup
     {
-	  email: "user@test.pl",
-	  password: "qwerty123",
-	  name: "Jan",
-	  surname: "Kowalski"
-	}
+      email: "user@test.pl",
+      password: "qwerty123",
+      name: "Jan",
+      surname: "Kowalski"
+    }
 ------------
-- **Sign In**
+- **Logowanie**
 
-> Returns access and refresh tokens
+> Zwraca tokeny dostępu i odświeżający
 
-	POST http://localhost:3000/api/auth/signin
+    POST http://localhost:3000/api/auth/signin
     {
-	  email: "user@test.pl",
-	  password: "qwerty123",
-	}
+      email: "user@test.pl",
+      password: "qwerty123",
+    }
 ------------
-- **Refresh**
+- **Odświeżanie**
 
-> Creates a new refresh token for user and updates hashed token in the database
-> Requires refersh token in headers
+> Tworzy nowy token odświeżający dla użytkownika i aktualizuje zhashowany token w bazie danych
+> Wymaga tokena odświeżającego w nagłówkach
 
-	POST http://localhost:3000/api/auth/refresh
+    POST http://localhost:3000/api/auth/refresh
 ------------
-- **Log out**
+- **Wylogowanie**
 
-> Log out a user and delete refresh token from the database
-> Requires access token in  headers
+> Wyloguj użytkownika i usuń token odświeżający z bazy danych
+> Wymaga tokena dostępu w nagłówkach
 
-	POST http://localhost:3000/api/auth/logout
+    POST http://localhost:3000/api/auth/logout
 ------------
-## Users
+## Użytkownicy
 ------------
-- **Get all users**
+- **Pobierz wszystkich użytkowników**
 
-> Returns users list with optional relations
-> Pagination options: ?addresses=true&roles=true&shops=true&orders=true&take=3&skip=2
-> Admin role is required
+> Zwraca listę użytkowników z opcjonalnymi powiązaniami
+> Opcje paginacji: ?addresses=true&roles=true&shops=true&orders=true&take=3&skip=2
+> Wymagana rola administratora
 
-	GET http://localhost:3000/api/users?addresses=true&roles=true&take=3&skip=2
+    GET http://localhost:3000/api/users?addresses=true&roles=true&take=3&skip=2
 ------------
-- **Get currently logged in user info**
+- **Pobierz informacje o obecnie zalogowanym użytkowniku**
 
-> Returns currently logged in user information
+> Zwraca informacje o obecnie zalogowanym użytkowniku
 
-	GET  http://localhost:3000/api/users/info
+    GET  http://localhost:3000/api/users/info
 ------------
-- **Get user shops**
+- **Pobierz sklepy użytkownika**
 
-> Returns currently logged in user shops
+> Zwraca sklepy obecnie zalogowanego użytkownika
 
-	GET  http://localhost:3000/api/users/shops
+    GET  http://localhost:3000/api/users/shops
 ------------
-## Addresses
-- **Get user addresses**
+## Adresy
+- **Pobierz adresy użytkownika**
 
-> Returns currently logged in user addresses
+> Zwraca adresy obecnie zalogowanego użytkownika
 
-	GET  http://localhost:3000/api/addresses
+    GET  http://localhost:3000/api/addresses
 ------------
-- **Add address**
+- **Dodaj adres**
 
-> Add new address to user
+> Dodaj nowy adres dla użytkownika
 
-	POST http://localhost:3000/api/users/address
-	{
-	  label: "Dom",
-	  city: "Sopot",
-	  postCode: "78-100",
-	  street: "Kołobrzeska 18/16",
-	  phoneNumber: "997997997"
-	}
+    POST http://localhost:3000/api/users/address
+    {
+      label: "Dom",
+      city: "Sopot",
+      postCode: "78-100",
+      street: "Kołobrzeska 18/16",
+      phoneNumber: "997997997"
+    }
 ------------
-- **Remove address**
+- **Usuń adres**
 
-> Remove address from user
+> Usuń adres użytkownika
 
-	DELETE http://localhost:3000/api/users/address/{id}
+    DELETE http://localhost:3000/api/users/address/{id}
 ------------
-## Categories
-- **Find all**
+## Kategorie
+- **Znajdź wszystkie**
 
-> Returns all categories
+> Zwraca wszystkie kategorie
 
-	GET http://localhost:3000/api/categories
+    GET http://localhost:3000/api/categories
 ------------
-- **Add category**
+- **Dodaj kategorię**
 
-> Add new category
+> Dodaj nową kategorię
 
-	POST http://localhost:3000/api/categories
-	{
-	  name: "Owoce",
-	}
+    POST http://localhost:3000/api/categories
+    {
+      name: "Owoce",
+    }
 ------------
-- **Remove category**
+- **Usuń kategorię**
 
-> Remove category
+> Usuń kategorię
 
-	DELETE http://localhost:3000/api/categories/{id}
+    DELETE http://localhost:3000/api/categories/{id}
 ------------
-- **Rename category**
+- **Zmień nazwę kategorii**
 
-> Rename category
+> Zmień nazwę kategorii
 
-	PATCH http://localhost:3000/api/categories/{id}
-	{
-	  name: "Nowa nazwa",
-	}
+    PATCH http://localhost:3000/api/categories/{id}
+    {
+      name: "Nowa nazwa",
+    }
 ------------
-## Shops
+## Sklepy
 ------------
-- **Create shop**
+- **Utwórz sklep**
 
-> Creates new shop
+> Tworzy nowy sklep
 
-	POST http://localhost:3000/api/shops
-	{
-		name: "Zioła świata",
-		bio: "Sklep zielarski",
-		nip: "7347433717",
-		city: "Słupsk",
-		postCode: "78-100",
-		street: "Kamyczkowa 7/8",
-		phoneNumber: "383710634",
-		bankAccount: "49147010543176579163507404"
-	}
+    POST http://localhost:3000/api/shops
+    {
+      name: "Zioła świata",
+      bio: "Sklep zielarski",
+      nip: "7347433717",
+      city: "Słupsk",
+      postCode: "78-100",
+      street: "Kamyczkowa 7/8",
+      phoneNumber: "383710634",
+      bankAccount: "49147010543176579163507404"
+    }
 ------------
-- **Remove shop**
+- **Usuń sklep**
 
-> Remove shop
+> Usuń sklep
 
-	DELETE http://localhost:3000/api/shops/{id}
+    DELETE http://localhost:3000/api/shops/{id}
 ------------
-- **Get all shops**
+- **Pobierz wszystkie sklepy**
 
-> Returns shop list with optional relations
-> Pagination options: ?addresses=true&user=true&products=true&take=3&skip=2
+> Zwraca listę sklepów z opcjonalnymi powiązaniami
+> Opcje paginacji: ?addresses=true&user=true&products=true&take=3&skip=2
 
-	GET http://localhost:3000/api/shops?addresses=true&user=true&products=true&take=3&skip=2
+    GET http://localhost:3000/api/shops?addresses=true&user=true&products=true&take=3&skip=2
 ------------
-- **Get shop info**
+- **Pobierz informacje o sklepie**
 
-> Returns shop info
+> Zwraca informacje o sklepie
 
-	GET http://localhost:3000/api/shops/{shopID}
+    GET http://localhost:3000/api/shops/{shopID}
 
-- **Find active shops**
+- **Znajdź aktywne sklepy**
 
-> Returns active shops list
-> Pagination options: ?addresses=true&user=true&products=true&take=3&skip=2
+> Zwraca listę aktywnych sklepów
+> Opcje paginacji: ?addresses=true&user=true&products=true&take=3&skip=2
 
-	GET http://localhost:3000/api/shops/active
+    GET http://localhost:3000/api/shops/active
 
 
 ------------
 
-- **Find inactive shops**
+- **Znajdź nieaktywne sklepy**
 
-> Returns inactive shops list
-> Pagination options: ?addresses=true&user=true&products=true&take=3&skip=2
+> Zwraca listę nieaktywnych sklepów
+> Opcje paginacji: ?addresses=true&user=true&products=true&take=3&skip=2
 
-	GET http://localhost:3000/api/shops/inactive
-
-
-- **Change shop status**
-
-> Change shop status 0/1
-> Admin role is required
-
-	GET http://localhost:3000/api/shops/status/{id}
-
-## Products
-- **Add product**
-
-> Add new product to shop
-> User must be shop owner
-
-	POST http://localhost:3000/api/products/shop/{shopID}
-	{
-		name: "Skarpetki" ,
-		amount: 3,
-		description: "idelne do gry w kosza",
-		vat: 23,
-		price: 120,
-		categories: [
-				"4b6f8032-abe9-428e-8c99-328a8b825b2b",
-				"1C6f8032-Ube2-628e-4f99-1235f12f14f23",
-		]
-	}
-
-- **Set product image**
-
-> Uploads product image
-> Set image url for product
-
-	POST http://localhost:3000/api/products/image/{productId}
-	file('image')
-
-- **Remove product**
-
-> Remove product from shop
-> User must be shop owner
-
-	DELETE http://localhost:3000/api/products/shops/{shopId}/{productId}
+    GET http://localhost:3000/api/shops/inactive
 
 
-- **Edit product in shop**
+- **Zmień status sklepu**
 
-> Edit product in shop
-> User have to be a shop owner to edit product
+> Zmień status sklepu na 0/1
+> Wymagana rola administratora
 
-	PATCH http://localhost:3000/api/products/{shopId/{productId}
-	{
-		{
-		name: "nowa nazwa" ,
-		amount: 10000,
-		description: "nowy opis",
-		vat: 23,
-		price: 110000
-	}
+    GET http://localhost:3000/api/shops/status/{id}
 
-- **Find one product**
+## Produkty
+- **Dodaj produkt**
 
-> Returns one product
+> Dodaj nowy produkt do sklepu
+> Użytkownik musi być właścicielem sklepu
 
-	GET http://localhost:3000/api/products/find/{productId}
+    POST http://localhost:3000/api/products/shop/{shopID}
+    {
+      name: "Skarpetki" ,
+      amount: 3,
+      description: "Idealne do gry w kosza",
+      vat: 23,
+      price: 120,
+      categories: [
+          "4b6f8032-abe9-428e-8c99-328a8b825b2b",
+          "1C6f8032-Ube2-628e-4f99-1235f12f14f23",
+      ]
+    }
+
+- **Ustaw obraz produktu**
+
+> Wgraj obraz produktu
+> Ustaw adres URL obrazu dla produktu
+
+    POST http://localhost:3000/api/products/image/{productId}
+    file('image')
+
+- **Edytuj produkt w sklepie**
+
+> Edytuj produkt w sklepie
+> Użytkownik musi być właścicielem sklepu
+
+    PATCH http://localhost:3000/api/products/{shopId/{productId}
+    {
+      name: "nowa nazwa" ,
+      amount: 10000,
+      description: "nowy opis",
+      vat: 23,
+      price: 110000
+    }
+
+- **Znajdź jeden produkt**
+
+> Zwraca jeden produkt
+
+    GET http://localhost:3000/api/products/find/{productId}
 
 
 
-- **Find all products**
+- **Znajdź wszystkie produkty**
 
-> Find all products
-> Pagination options: ?categoryID={categoryID}&categoryID={categoryID}&max={number}&min={number}&name={name}&take=3&skip=2
+> Znajdź wszystkie produkty
+> Opcje paginacji: ?categoryID={categoryID}&categoryID={categoryID}&max={number}&min={number}&name={name}&take=3&skip=2
 
-	GET http://localhost:3000/api/products/find?name=test&max=30000&min=10000&categoryID={id}&categoryID={id}&skip=0&take=1
+    GET http://localhost:3000/api/products/find?name=test&max=30000&min=10000&categoryID={id}&categoryID={id}&skip=0&take=1
 
-- **Find all products in shop**
+- **Znajdź wszystkie produkty w sklepie**
 
-> Find all products in shop
-> Pagination options: ?categoryID={categoryID}&categoryID={categoryID}&max={number}&min={number}&name={name}&take=3&skip=2
+> Znajdź wszystkie produkty w sklepie
+> Opcje paginacji: ?categoryID={categoryID}&categoryID={categoryID}&max={number}&min={number}&name={name}&take=3&skip=2
 
-	GET http://localhost:3000/api/products/find/shop/{shopId}?name=test&max=30000&min=10000&categoryID={id}&categoryID={id}&skip=0&take=1
+    GET http://localhost:3000/api/products/find/shop/{shopId}?name=test&max=30000&min=10000&categoryID={id}&categoryID={id}&skip=0&take=1
 
-- **Find by product Ids**
+- **Znajdź produkty według Ids**
 
-> Find all products with given Ids
+> Znajdź wszystkie produkty o podanych Ids
 
-	GET http://localhost:3000/api/products/check?productId={productId}productId={productId}
+    GET http://localhost:3000/api/products/check?productId={productId}productId={productId}
 
-- **Check if given amount is avaible for product**
+- **Sprawdź, czy podana ilość produktu jest dostępna**
 
-> Returns true or false
+> Zwraca true lub false
 
-	GET http://localhost:3000/api/products/{productId}/{amount}
-	
-## Orders
-- **Create new order**
+    GET http://localhost:3000/api/products/{productId}/{amount}
+    
+## Zamówienia
+- **Utwórz nowe zamówienie**
 
-> Creates new order
+> Tworzy nowe zamówienie
 
-	POST http://localhost:3000/api/orders
-	{   "nip": "1347433713",
-    "addressId": "b35f7016-6f79-4a45-bed0-0453549d3b49",
-    "items": [
-        {
-           "productId": "ad140ea0-f42f-4450-8655-a167fd349c87",
-           "amount": 3
-        },
-        {
-           "productId": "6d482fd3-55ff-4e1f-90da-b6c95b98c30d",
-           "amount": 1
-        },
-        {
-           "productId": "26418a24-b152-466e-8db9-44f8390d769d",
-           "amount": 1
-        },
-        {
-           "productId": "1f1cff8e-c48b-43b8-8b9c-5cc932d415e3",
-           "amount": 1
-        }
-     ]
-	}
+    POST http://localhost:3000/api/orders
+    {   "nip": "1347433713",
+      "addressId": "b35f7016-6f79-4a45-bed0-0453549d3b49",
+      "items": [
+          {
+            "productId": "ad140ea0-f42f-4450-8655-a167fd349c87",
+            "amount": 3
+          },
+          {
+            "productId": "6d482fd3-55ff-4e1f-90da-b6c95b98c30d",
+            "amount": 1
+          },
+          {
+            "productId": "26418a24-b152-466e-8db9-44f8390d769d",
+            "amount": 1
+          },
+          {
+            "productId": "1f1cff8e-c48b-43b8-8b9c-5cc932d415e3",
+            "amount": 1
+          }
+       ]
+    }
 
-- **Find user orders**
+- **Znajdź zamówienia użytkownika**
 
-> Returns all user orders
+> Zwraca wszystkie zamówienia użytkownika
 
-	GET http://localhost:3000/api/orders
+    GET http://localhost:3000/api/orders
 
-- **Find shop orders**
+- **Znajdź zamówienia sklepu**
 
-> Returns all shop orders
+> Zwraca wszystkie zamówienia sklepu
 
-	GET http://localhost:3000/api/orders/shop/{shopId}
+    GET http://localhost:3000/api/orders/shop/{shopId}
 
-- **Order cancel**
+- **Anuluj zamówienie**
 
-> Cancel order 
-> Only orders with status 'pending' can be canceled
+> Anuluj zamówienie 
+> Tylko zamówienia ze statusem 'pending' mogą być anulowane
 
-	POST http://localhost:3000/api/orders/cancel/{orderId}
+    POST http://localhost:3000/api/orders/cancel/{orderId}
 
-- **Order payment**
+- **Płatność za zamówienie**
 
-> Order payment
-> Only orders with status 'pending' can be paid
+> Płatność za zamówienie
+> Tylko zamówienia ze statusem 'pending' mogą być opłacone
 
-	POST http://localhost:3000/api/orders/payment/{orderId}
+    POST http://localhost:3000/api/orders/payment/{orderId}
 
-- **Complete order ( Shop side )**
+- **Zakończ zamówienie (strona sklepu)**
 
-> Set shopStatus to true ( when all shops related with order are true, then order status changes to complete)
+> Ustawia status sklepu na true (gdy wszystkie sklepy powiązane z zamówieniem są true, status zamówienia zmienia się na 'complete')
 
-	POST http://localhost:3000/api/orders/complete/{shopId}/{orderId}
-
+    POST http://localhost:3000/api/orders/complete/{shopId}/{orderId}
