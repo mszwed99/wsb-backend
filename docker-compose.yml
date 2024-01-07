@@ -4,7 +4,7 @@ services:
     image: mongo
     restart: always
     environment:
-      MONGO_INITDB_DATABASE: licencjat
+      MONGO_INITDB_DATABASE: mg
     ports:
       - 27017:27017
       
@@ -13,9 +13,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: licencjat
-      POSTGRES_PASSWORD: licencjat
-      POSTGRES_DB: licencjat-ug
+      POSTGRES_USER: mg
+      POSTGRES_PASSWORD: mg
+      POSTGRES_DB: mg-wsb
 
   adminer:
     image: adminer
